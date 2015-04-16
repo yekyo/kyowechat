@@ -17,6 +17,7 @@
     "mongoose": "*",
     "express-session": "*",
     "req-flash": "*",
-    "wechat": "*"
+    "wechat": "*",
+    "connect-mongo": "*"
   }
 }

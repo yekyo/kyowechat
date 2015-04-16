@@ -5,7 +5,12 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
 var flash = require('req-flash');
+var mongoose = require('mongoose');
+
+var connection = mongoose.createConnection('mongodb://kyo:kyo@localhost/kyowechat');
+//mongoose.connect('mongodb://kyo:kyo@localhost/kyowechat');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -24,13 +29,20 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(session({
-    //resave: false,
-    //saveUninitialized: false,
+/*app.use(session({
+    resave: false,
+    saveUninitialized: false,
     secret: 'kyoye',
     cookie: {maxAge: 1000 * 60 * 60 * 24 * 30}
-}));
+}));*/
 //app.use(session({ secret: 'kyoye'}));
+app.use(session({
+    resave: true,
+    saveUninitialized: true,
+    secret: 'kyoye',
+    store: new MongoStore({ mongooseConnection: connection })
+    //store: new MongoStore({ mongooseConnection: mongoose.connection })
+}));
 app.use(flash({ locals: 'flash'}));
 //app.use(express.static(path.join(__dirname, 'public')));
 app.use('/public',express.static(__dirname + '/public'));

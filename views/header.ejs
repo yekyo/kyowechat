@@ -6,3 +6,9 @@
     </head>
     <body>
         <div class="container">
+            <% if(successMsg){ %>
+                <div class="alert alert-success"><%= successMsg %></div>
+            <% } %>
+            <% if(errorMsg){ %>
+                <div class="alert alert-danger"><%= errorMsg %></div>
+            <% } %>
