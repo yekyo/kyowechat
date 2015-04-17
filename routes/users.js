@@ -74,7 +74,9 @@ router.route('/edit/:id')
             if(err){
                 throw err;
             }
-            res.end("Update Success!");
+            //res.end("Update Success!");
+            req.flash('successMsg','Update Success!');
+            res.redirect('/users');
         });
     })
 
