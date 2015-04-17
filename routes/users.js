@@ -21,6 +21,10 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/delete/:id', function(req, res, next){
+    if(!req.session.user){
+        req.flash('errorMsg','Please login first!');
+        res.redirect('/users/login');
+    }
     var id = req.params.id;
     User.remove(id, function(err, doc){
         if(err){
@@ -45,6 +49,10 @@ router.get('/delete/:id', function(req, res, next){
 
 router.route('/edit/:id')
     .get(function(req, res, next){
+        if(!req.session.user){
+            req.flash('errorMsg','You must login first!');
+            return res.redirect('/users/login');
+        }
         var id = req.params.id;
         User.getOne(id, function(err, doc){
            if(err){
@@ -52,7 +60,9 @@ router.route('/edit/:id')
            }
             res.render('userform',{
                title: "Edit User",
-                user: doc
+                user: doc,
+                successMsg: req.flash('successMsg'),
+                errorMsg: req.flash('errorMsg')
             });
         });
     })
@@ -100,6 +110,10 @@ router.route('/login')
     })
 
 router.get('/logout', function(req, res, next){
+    if(!req.session.user){
+        req.flash('errorMsg','You not login!');
+        return res.redirect('/users/login');
+    }
     req.session.user = null;
     //console.log(req.session.user);
     res.end("Logout Success");
@@ -108,7 +122,7 @@ router.get('/logout', function(req, res, next){
 router.route('/reg')
     .get(function(req, res, next){
         if(req.session.user){
-            req.flash('errorMsg',"You are logged!");
+            req.flash('errorMsg','You are logged!');
             return res.redirect('/users');
         }
         res.render('register',{
@@ -117,20 +131,43 @@ router.route('/reg')
         });
     })
     .post(function(req, res, next){
-      var user = {
-        username: req.body.username,
-        password: req.body.password,
-        date: new Date()
-      };
-      newuser = new User(user);
-      newuser.save(function(err, doc){
-        if(err){
-          throw err;
-        }
-          req.flash('successMsg','Register Successfully!');
-          res.redirect('back');
-        //res.end("Register Successfully!");
-      });
+        var user = {
+            username: req.body.username,
+            password: req.body.password,
+            date: new Date()
+        };
+        //console.log(user.username);
+        //check Username isexist
+        User.get(user.username, function(err, doc){
+            //console.log(err);
+            if(!doc){
+                newuser = new User(user);
+                newuser.save(function(err, doc){
+                    if(err){
+                        throw err
+                    }
+                    req.session.user = doc;
+                    req.flash('successMsg', 'Register Successfully!');
+                    res.redirect('/users');
+                });
+            }else{
+                req.flash('errorMsg', 'Username is used!');
+                res.redirect('back');
+            }
+        });
+
+        /*newuser = new User(user);
+        newuser.save(function(err, doc){
+            if(err){
+                throw err;
+            }
+            //console.log(doc);
+            req.session.user = doc;
+            req.flash('successMsg','Register Successfully!');
+            res.redirect('/users');
+            //res.redirect('back');
+            // res.end("Register Successfully!");
+      });*/
     })
 
 /*function checkLogin(){

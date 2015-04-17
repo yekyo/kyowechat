@@ -26,11 +26,12 @@ User.prototype.save = function(callback){
         password: this.password,
         date: this.date
     };
+
     var newUser = new UserModel(user);
 
     newUser.save(function(err,doc){
         if(err){
-            throw err;
+            return callback(err);
         }
         callback(null, doc);
     })
@@ -40,9 +41,15 @@ User.get = function(name, callback){
     var username = {
         username: name
     };
+    //console.log(username);
+    /*UserModel.findOne({username: "23232@qq.com"}, function(err, doc){
+        console.log(err);
+        console.log(doc);
+    });*/
     UserModel.findOne(username, function(err, doc){
+        //console.log(err);
         if(err){
-            callback(err);
+            return callback(err);
         }
         callback(null, doc);
     });
@@ -51,7 +58,7 @@ User.get = function(name, callback){
 User.getAll = function (callback) {
     UserModel.find({},function(err, doc){
         if(err) {
-            callback(err);
+            return callback(err);
         }
         //console.log(doc);
         callback(null, doc);
@@ -64,8 +71,7 @@ User.getOne = function(id, callback){
     };
     UserModel.findOne(userid, function(err, doc){
        if(err) {
-           //throw err;
-           callback(err);
+           return callback(err);
        }
         //console.log(doc);
         callback(null, doc);
@@ -82,7 +88,7 @@ User.resave = function(id,username,password,callback){
     };
     UserModel.update(id,user, function(err){
         if(err){
-            callback(err);
+            return callback(err);
         }
         callback(null);
     });
@@ -92,10 +98,10 @@ User.remove = function(id, callback){
     var userid = {
         _id: mongoose.Types.ObjectId(id)
     };
-    console.log(userid);
+    //console.log(userid);
     UserModel.findOne(userid).remove(function(err, doc){
         if(err){
-            console.log(err.toString());
+            return callback(err)
         }
         callback(null, doc);
     });
