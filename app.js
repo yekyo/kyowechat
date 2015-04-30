@@ -14,6 +14,7 @@ var connection = mongoose.createConnection('mongodb://kyo:kyo@localhost/kyowecha
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var wechat = require('./routes/wechat');
 
 var app = express();
 
@@ -49,6 +50,7 @@ app.use('/public',express.static(__dirname + '/public'));
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/wechat', wechat);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -56,6 +58,8 @@ app.use(function(req, res, next) {
     err.status = 404;
     next(err);
 });
+
+app.use(express.query());
 
 // error handlers
 
