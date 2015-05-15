@@ -306,4 +306,43 @@ router.get('/rmmenu', function(req, res, next){
     });
 });
 
+//语义理解
+router.get('/semantic', function(req, res, next){
+    var url = "https://api.weixin.qq.com/semantic/semproxy/search?access_token=";
+    var ares = res;
+    var post_data = JSON.stringify(
+        {
+            "query":"查一下明天从北京到上海的南航机票",
+            "city":"北京",
+            "category": "flight,hotel",
+            "appid":"wxaaaaaaaaaaaaaaaa",
+            "uid":"123456"
+        }
+    );
+
+    getAccessToken(req.session, function(){
+        var token = req.session.accesstoken.access_token;
+        var post_options = {
+            hostname: 'api.weixin.qq.com',
+            port: 443,
+            path: '/semantic/semproxy/search?access_token=' + token,
+            method: 'POST'
+        };
+        var msg = '';
+
+        var post_req = https.request(post_options, function(res){
+            res.on('data', function(chunk){
+                msg += chunk;
+            });
+            res.on('end', function(){
+                console.log(msg);
+                ares.end(msg);
+            });
+        });
+
+        post_req.write(post_data);
+        post_req.end();
+    });
+});
+
 module.exports = router;
