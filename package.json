@@ -18,6 +18,7 @@
     "express-session": "*",
     "req-flash": "*",
     "wechat": "*",
-    "async": "*"
+    "async": "*",
+    "wechat-api": "*"
   }
 }

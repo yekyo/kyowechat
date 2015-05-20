@@ -2,39 +2,219 @@
     <div class="jumbotron">
         <h1><%= title %></h1>
     </div>
-    <label class="control-label">一级菜单</label>
+    <label class="control-label">一级菜单(最多包括3个一级菜单，每个一级菜单最多包含5个二级菜单)</label>
     <form method="post" class="form-horizontal" enctype="application/json">
-        <div>
-            <label class="control-label">一号</label>
-            <div class="form-group">
-                <label class="col-sm-1 control-label">菜单标题</label>
-                <input class="col-sm-10 col-sm-offset-1" name="onename" type="text">
+        <div class="row">
+            <div class="col-sm-6">
+                <label class="control-label">一级菜单</label>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">菜单标题</label>
+                    <input class="col-sm-8 col-sm-offset-1 col-sm-pull-1" name="onename" type="text" placeholder="菜单标题，不超过16个字节">
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">菜单类型</label>
+                    <select class="col-sm-8 col-sm-offset-1 col-sm-pull-1" name="onetype">
+                        <option value="click">点击推送事件</option>
+                        <option value="view">跳转URL</option>
+                        <option value="scancode_push">扫码推事件</option>
+                        <option value="scancode_waitmsg">扫码推事件且弹出"消息接收中"提示框</option>
+                        <option value="pic_sysphoto">弹出系统拍照发图</option>
+                        <option value="pic_photo_or_album">弹出拍照或者相册发图</option>
+                        <option value="pic_weixin">弹出微信相册发图器</option>
+                        <option value="location_select">弹出地理位置选择器</option>
+                        <option value="media_id">下发消息</option>
+                        <option value="view_limited">跳转图文消息URL</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">菜单key值</label>
+                    <input name="onekey" placeholder="click等点击类型必须" type="text" class="col-sm-offset-1 col-sm-8 col-sm-pull-1">
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">URL</label>
+                    <input type="text" name="oneurl" placeholder="view类型必须" class="col-sm-8 col-sm-offset-1 col-sm-pull-1">
+                </div>
             </div>
-            <div class="form-group">
-                <label class="col-sm-1 control-label">菜单类型</label>
-                <select class="col-sm-10 col-sm-offset-1" name="onetype">
-                    <option value="click">点击推送事件</option>
-                    <option value="view">跳转URL</option>
-                    <option value="scancode_push">扫码推事件</option>
-                    <option value="scancode_waitmsg">扫码推事件且弹出"消息接收中"提示框</option>
-                    <option value="pic_sysphoto">弹出系统拍照发图</option>
-                    <option value="pic_photo_or_album">弹出拍照或者相册发图</option>
-                    <option value="pic_weixin">弹出微信相册发图器</option>
-                    <option value="location_select">弹出地理位置选择器</option>
-                    <option value="media_id">下发消息</option>
-                    <option value="view_limited">跳转图文消息URL</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-1 control-label">菜单key值</label>
-                <input name="onekey" placeholder="click等点击类型必须" type="text" class="col-sm-offset-1 col-sm-10">
-            </div>
-            <div class="form-group">
-                <label class="col-sm-1 control-label">URL</label>
-                <input type="text" name="oneurl" placeholder="view类型必须" class="col-sm-10 col-sm-offset-1 ">
+            <div class="col-sm-6">
+                <div role="tabpanel" class="row">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#onesub" aria-controls="onesub" role="tab" data-toggle="tab">OneSub</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#twosub" aria-controls="twosub" role="tab" data-toggle="tab">TwoSub</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#threesub" aria-controls="threesub" role="tab" data-toggle="tab">ThreeSub</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#foursub" aria-controls="foursub" role="tab" data-toggle="tab">FourSub</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#fivesub" aria-controls="fivesub" role="tab" data-toggle="tab">FiveSub</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="onesub">
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">菜单标题</label>
+                                    <input class="col-sm-8 col-sm-offset-1 col-sm-pull-1" name="onesubname" type="text" placeholder="子菜单不超过40个字节">
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">菜单类型</label>
+                                    <select class="col-sm-8 col-sm-offset-1 col-sm-pull-1" name="onesubtype">
+                                        <option value="click">点击推送事件</option>
+                                        <option value="view">跳转URL</option>
+                                        <option value="scancode_push">扫码推事件</option>
+                                        <option value="scancode_waitmsg">扫码推事件且弹出"消息接收中"提示框</option>
+                                        <option value="pic_sysphoto">弹出系统拍照发图</option>
+                                        <option value="pic_photo_or_album">弹出拍照或者相册发图</option>
+                                        <option value="pic_weixin">弹出微信相册发图器</option>
+                                        <option value="location_select">弹出地理位置选择器</option>
+                                        <option value="media_id">下发消息</option>
+                                        <option value="view_limited">跳转图文消息URL</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">菜单key值</label>
+                                    <input name="onesubkey" placeholder="click等点击类型必须" type="text" class="col-sm-offset-1 col-sm-8 col-sm-pull-1">
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">URL</label>
+                                    <input type="text" name="onesuburl" placeholder="view类型必须" class="col-sm-8 col-sm-offset-1 col-sm-pull-1">
+                                </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="twosub">
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">菜单标题</label>
+                                    <input class="col-sm-8 col-sm-offset-1 col-sm-pull-1" name="onesubname" type="text" placeholder="子菜单不超过40个字节">
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">菜单类型</label>
+                                    <select class="col-sm-8 col-sm-offset-1 col-sm-pull-1" name="onesubtype">
+                                        <option value="click">点击推送事件</option>
+                                        <option value="view">跳转URL</option>
+                                        <option value="scancode_push">扫码推事件</option>
+                                        <option value="scancode_waitmsg">扫码推事件且弹出"消息接收中"提示框</option>
+                                        <option value="pic_sysphoto">弹出系统拍照发图</option>
+                                        <option value="pic_photo_or_album">弹出拍照或者相册发图</option>
+                                        <option value="pic_weixin">弹出微信相册发图器</option>
+                                        <option value="location_select">弹出地理位置选择器</option>
+                                        <option value="media_id">下发消息</option>
+                                        <option value="view_limited">跳转图文消息URL</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">菜单key值</label>
+                                    <input name="onesubkey" placeholder="click等点击类型必须" type="text" class="col-sm-offset-1 col-sm-8 col-sm-pull-1">
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">URL</label>
+                                    <input type="text" name="onesuburl" placeholder="view类型必须" class="col-sm-8 col-sm-offset-1 col-sm-pull-1">
+                                </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="threesub">
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">菜单标题</label>
+                                    <input class="col-sm-8 col-sm-offset-1 col-sm-pull-1" name="onesubname" type="text" placeholder="子菜单不超过40个字节">
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">菜单类型</label>
+                                    <select class="col-sm-8 col-sm-offset-1 col-sm-pull-1" name="onesubtype">
+                                        <option value="click">点击推送事件</option>
+                                        <option value="view">跳转URL</option>
+                                        <option value="scancode_push">扫码推事件</option>
+                                        <option value="scancode_waitmsg">扫码推事件且弹出"消息接收中"提示框</option>
+                                        <option value="pic_sysphoto">弹出系统拍照发图</option>
+                                        <option value="pic_photo_or_album">弹出拍照或者相册发图</option>
+                                        <option value="pic_weixin">弹出微信相册发图器</option>
+                                        <option value="location_select">弹出地理位置选择器</option>
+                                        <option value="media_id">下发消息</option>
+                                        <option value="view_limited">跳转图文消息URL</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">菜单key值</label>
+                                    <input name="onesubkey" placeholder="click等点击类型必须" type="text" class="col-sm-offset-1 col-sm-8 col-sm-pull-1">
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">URL</label>
+                                    <input type="text" name="onesuburl" placeholder="view类型必须" class="col-sm-8 col-sm-offset-1 col-sm-pull-1">
+                                </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="foursub">
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">菜单标题</label>
+                                    <input class="col-sm-8 col-sm-offset-1 col-sm-pull-1" name="onesubname" type="text" placeholder="子菜单不超过40个字节">
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">菜单类型</label>
+                                    <select class="col-sm-8 col-sm-offset-1 col-sm-pull-1" name="onesubtype">
+                                        <option value="click">点击推送事件</option>
+                                        <option value="view">跳转URL</option>
+                                        <option value="scancode_push">扫码推事件</option>
+                                        <option value="scancode_waitmsg">扫码推事件且弹出"消息接收中"提示框</option>
+                                        <option value="pic_sysphoto">弹出系统拍照发图</option>
+                                        <option value="pic_photo_or_album">弹出拍照或者相册发图</option>
+                                        <option value="pic_weixin">弹出微信相册发图器</option>
+                                        <option value="location_select">弹出地理位置选择器</option>
+                                        <option value="media_id">下发消息</option>
+                                        <option value="view_limited">跳转图文消息URL</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">菜单key值</label>
+                                    <input name="onesubkey" placeholder="click等点击类型必须" type="text" class="col-sm-offset-1 col-sm-8 col-sm-pull-1">
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">URL</label>
+                                    <input type="text" name="onesuburl" placeholder="view类型必须" class="col-sm-8 col-sm-offset-1 col-sm-pull-1">
+                                </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="fivesub">
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">菜单标题</label>
+                                    <input class="col-sm-8 col-sm-offset-1 col-sm-pull-1" name="onesubname" type="text" placeholder="子菜单不超过40个字节">
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">菜单类型</label>
+                                    <select class="col-sm-8 col-sm-offset-1 col-sm-pull-1" name="onesubtype">
+                                        <option value="click">点击推送事件</option>
+                                        <option value="view">跳转URL</option>
+                                        <option value="scancode_push">扫码推事件</option>
+                                        <option value="scancode_waitmsg">扫码推事件且弹出"消息接收中"提示框</option>
+                                        <option value="pic_sysphoto">弹出系统拍照发图</option>
+                                        <option value="pic_photo_or_album">弹出拍照或者相册发图</option>
+                                        <option value="pic_weixin">弹出微信相册发图器</option>
+                                        <option value="location_select">弹出地理位置选择器</option>
+                                        <option value="media_id">下发消息</option>
+                                        <option value="view_limited">跳转图文消息URL</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">菜单key值</label>
+                                    <input name="onesubkey" placeholder="click等点击类型必须" type="text" class="col-sm-offset-1 col-sm-8 col-sm-pull-1">
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">URL</label>
+                                    <input type="text" name="onesuburl" placeholder="view类型必须" class="col-sm-8 col-sm-offset-1 col-sm-pull-1">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div>
+        <!--<div class="row">
             <label class="control-label">二号</label>
             <div class="form-group">
                 <label class="col-sm-1 control-label">菜单标题</label>
@@ -64,7 +244,7 @@
                 <input type="text" name="twourl" placeholder="view类型必须" class="col-sm-10 col-sm-offset-1 ">
             </div>
         </div>
-        <div>
+        <div class="row">
             <label class="control-label">三号</label>
             <div class="form-group">
                 <label class="col-sm-1 control-label">菜单标题</label>
@@ -93,7 +273,7 @@
                 <label class="col-sm-1 control-label">URL</label>
                 <input type="text" name="threeurl" placeholder="view类型必须" class="col-sm-10 col-sm-offset-1 ">
             </div>
-        </div>
+        </div>-->
         <div class="form-group">
             <button type="submit" class="btn-default col-sm-offset-10 col-sm-2">提交</button>
         </div>

@@ -201,8 +201,8 @@ router.post('/createmenu', function(req, res, next){
     console.log('start ceate menu');
     var back = req.body;
     console.log(back);
-
-   var url = 'https://api.weixin.qq.com/cgi-bin/menu/create?access_token=';
+    console.log(back.onename);
+    var url = 'https://api.weixin.qq.com/cgi-bin/menu/create?access_token=';
     var post_data = JSON.stringify({
         "button":[
             {
